@@ -3,14 +3,14 @@
     <img src="./assets/logo.png">
     <h1 v-text = "title"></h1>
     <h1 v-html= "subtitle"></h1>
-     <ol>
+     <ul>
       <li v-for="todo in todos" v-bind:class="{finished :todo.isFinished }" v-on:click="toggleFinish(todo)" >
          {{ todo.text }}
       </li>
-     </ol>
+     </ul>
     <p v-if>现在你看到我了</p>
     <p>{{ message }}</p>
-    <input v-model="message">
+    <input v-model="message" v-on:keyup.enter= "addNewTags">
     <button v-on:click="reverseMessage">逆转消息</button>
   </div>
 </template>
@@ -23,15 +23,7 @@ export default {
         title: 'Welcome to Your Vue.js App',
         subtitle:'<span>?<span>hello vuejs!',
            todos: [
-              { 
-                text: '学习 JavaScript',isFinished:true 
-              },
-              { 
-                text: '学习 Vue' ,isFinished:true
-              },
-              { 
-                text: 'Vue 开发教程' ,isFinished:true
-              }
+
            ]
       }
     },
@@ -42,6 +34,15 @@ export default {
         },
         reverseMessage: function () {
             this.message = this.message.split('').reverse().join('')
+        },
+        addNewTags :function() {
+          this.todos.push(
+            {
+              text: this.message,isFinished: false 
+            }
+          )
+          console.log(this.message)
+          this.message= ''
         }
     },
     seen: true
