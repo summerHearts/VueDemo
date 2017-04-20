@@ -4,7 +4,7 @@
     <h1 v-text = "title"></h1>
     <h1 v-html= "subtitle"></h1>
      <ol>
-      <li v-for="todo in todos">
+      <li v-for="todo in todos" v-bind:class="{finished :todo.isFinished }" v-on:click="toggleFinish(todo)" >
          {{ todo.text }}
       </li>
      </ol>
@@ -23,15 +23,22 @@ export default {
         title: 'Welcome to Your Vue.js App',
         subtitle:'<span>?<span>hello vuejs!',
            todos: [
-              { text: '学习 JavaScript' },
-              { text: '学习 Vue' },
-              { text: 'Vue 开发教程' }
+              { 
+                text: '学习 JavaScript',isFinished:true 
+              },
+              { 
+                text: '学习 Vue' ,isFinished:true
+              },
+              { 
+                text: 'Vue 开发教程' ,isFinished:true
+              }
            ]
       }
     },
       methods:  {
-        toggleFinish:function (item){
-          console.log(item)
+        toggleFinish :function (todo){
+          todo.isFinished = !todo.isFinished;
+          console.log(todo);
         },
         reverseMessage: function () {
             this.message = this.message.split('').reverse().join('')
